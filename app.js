@@ -24,46 +24,50 @@ const render = require(`./lib/htmlRenderer`);
         }).then((answer) => {
 
             if (JSON.stringify(answer) == `{"initialize":"yes"}`) {
-                inquirer
-                    .prompt({
-                        type: `list`,
-                        message: `What type of employee are you adding?`,
-                        choices: [`Manager`, `Engineer`, `Intern`, `Temp`],
-                        name: `employeeType`
-                    }).then((employeeType) => {
-                        switch (JSON.stringify(employeeType)) {
-                            case `{"employeeType":"Manager"}`:
-                                manager()
-                                break
-                            case `{"employeeType":"Engineer"}`:
-                                engineer()
-                                break
-                            case `{"employeeType":"Intern"}`:
-                                intern()
-                                break
-                            case `{"employeeType":"Temp"}`:
-                                temp()
-                                break
-                            default:
-                                break
-                        }
+                anotherEmployee()
+            //     inquirer
+            //         .prompt({
+            //             type: `list`,
+            //             message: `What type of employee are you adding?`,
+            //             choices: [`Manager`, `Engineer`, `Intern`, `Temp`],
+            //             name: `employeeType`
+            //         }).then((employeeType) => {
+            //             switch (JSON.stringify(employeeType)) {
+            //                 case `{"employeeType":"Manager"}`:
+            //                     manager()
+            //                     break
+            //                 case `{"employeeType":"Engineer"}`:
+            //                     engineer()
+            //                     break
+            //                 case `{"employeeType":"Intern"}`:
+            //                     intern()
+            //                     break
+            //                 case `{"employeeType":"Temp"}`:
+            //                     temp()
+            //                     break
+            //                 default:
+            //                     break
+            //             }
 
 
-                    })
-            } else { console.log(`Congratulations on adding a new team member!`) }
+            //         })
+            } else { 
+                console.log(`Congratulations on adding a new team member!`);
+                render(employees) 
+            }
         })
 }
 
 // better way to do this without repeating????
 function anotherEmployee() {
-    inquirer
-        .prompt({
-            type: `list`,
-            message: `Would you like to add another employee?`,
-            choices: [`yes`, `no`],
-            name: `initialize`
-        }).then((answer) => {
-            if (JSON.stringify(answer) == `{"initialize":"yes"}`) {
+    // inquirer
+    //     .prompt({
+    //         type: `list`,
+    //         message: `Would you like to add another employee?`,
+    //         choices: [`yes`, `no`],
+    //         name: `initialize`
+    //     }).then((answer) => {
+    //         if (JSON.stringify(answer) == `{"initialize":"yes"}`) {
                 inquirer
                     .prompt({
                         type: `list`,
@@ -90,8 +94,8 @@ function anotherEmployee() {
 
 
                     })
-            } else { render(employees) }
-        })
+        //     } else { render(employees) }
+        // })
 }
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -107,38 +111,38 @@ function anotherEmployee() {
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
 ​function manager() {
-    console.log(`Let's input your Manager!`)
+    console.log(`We will begin entering your manager's information.`)
     inquirer
         .prompt([
             {
                 type: "input",
-                message: `What is your Manager's name`,
+                message: `Please enter your manager's name.`,
                 name: `managerName`
             },
             {
                 type: "input",
-                message: `What is your Manager's ID number?`,
-                name: `managerId`
+                message: `Please enter your manager's ID number.`,
+                name: `managerID`
             },
             {
                 type: "input",
-                message: `What is your Manager's email?`,
+                message: `Please enter your manager's email address.`,
                 name: `managerEmail`
             },
             {
                 type: "input",
-                message: `What is your Manager's office number?`,
+                message: `What is your manager's office number?`,
                 name: `managerNumber`
             }
         ]).then((answers) => {
-            const currentManager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerNumber, `Manager`)
+            const currentManager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerNumber, `Manager`)
             employees.push(currentManager)
-            anotherEmployee()
+           addEmployee()
         })
 }
 
 function engineer() {
-    console.log(`Let's input your Engineer!`)
+    console.log(`We will begin entering your engineer's information.`)
     inquirer
         .prompt([
             {
@@ -153,24 +157,24 @@ function engineer() {
             },
             {
                 type: "input",
-                message: `What is your Engineer's email?`,
+                message: `Please enter the engineer's email address.`,
                 name: `engineerEmail`
             },
             {
                 type: "input",
-                message: `What is your Engineer's Github Username?`,
+                message: `What is your engineer's Github Username?`,
                 name: `engineerGithub`
             }
         ]).then((answers) => {
             const currentEngineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub, `Engineer`)
 
             employees.push(currentEngineer)
-            anotherEmployee()
+            addEmployee()
         })
 }
 
 function intern() {
-    console.log(`Let's input your Intern!`)
+    console.log(`We will begin entering the intern's information.`)
     inquirer
         .prompt([
             {
@@ -198,7 +202,7 @@ function intern() {
 
             employees.push(currentIntern)
             
-            anotherEmployee()
+            addEmployee()
         })
 }
 
@@ -231,13 +235,33 @@ function temp() {
 
             employees.push(currentTemp)
             
-            anotherEmployee()
+            addEmployee()
         })
 }
 
-addEmployee()
+anotherEmployee()
 // HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an 
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work!```
+
+
+
+
+
+
+/// 1 menus one for finish or add more
+
+// 1 menu to ask what kind of emp
+
+
+// function for every kind  ===> return to the first menu
+
+
+
+// start with add employ the fist time
+
+
+
+
